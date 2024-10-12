@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Khattab - Web Developer Portfolio</title>
+    <style>
+        body {
+            background-color: black;
+            color: limegreen;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: limegreen;
+        }
+        a {
+            color: limegreen;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .category {
+            padding: 20px;
+            border: 1px solid limegreen;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .category:hover {
+            background-color: limegreen;
+            color: black;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .tab {
+            padding: 10px;
+            cursor: pointer;
+            background-color: black;
+            border: 1px solid limegreen;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .tab:hover {
+            background-color: limegreen;
+            color: black;
+        }
+        .active {
+            background-color: limegreen;
+            color: black;
+        }
+        .content {
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+            max-height: 0;
+        }
+        .show {
+            display: block;
+            opacity: 1;
+            max-height: 1000px;
+        }
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="typing"></h1>
+    <p id="typing2"></p>
+
+    <!-- Categories -->
+    <div class="categories">
+        <div class="category" onclick="showTabs('waterSports')">Water Sports</div>
+        <div class="category" onclick="showTabs('hotels')">Hotels & Hospitality</div>
+        <div class="category" onclick="showTabs('businesses')">Businesses & Agencies</div>
+        <div class="category" onclick="showTabs('travel')">Travel Agency</div>
+    </div>
+
+    <!-- Tabs for each category -->
+    <div id="waterSports" class="tabs" style="display:none;">
+        <div class="tab" onclick="toggleTab('fbcdahab')">fbcdahab.com</div>
+        <div class="tab" onclick="toggleTab('dahabsurfshop')">dahabsurfshop.com</div>
+    </div>
+
+    <div id="hotels" class="tabs" style="display:none;">
+        <div class="tab" onclick="toggleTab('retacdahab')">retacdahab.com</div>
+    </div>
+
+    <div id="businesses" class="tabs" style="display:none;">
+        <div class="tab" onclick="toggleTab('invollect')">invollect.net</div>
+        <div class="tab" onclick="toggleTab('needanurse')">needanurse.uk</div>
+    </div>
+
+    <div id="travel" class="tabs" style="display:none;">
+        <div class="tab" onclick="toggleTab('a5ena')">a5ena.com</div>
+    </div>
+
+    <div class="content">
+        <!-- Water Sports -->
+        <div id="fbcdahab" class="tab-content">
+            <h2>FBC Dahab - A wind activities school in Safir Dahab Resort</h2>
+            <iframe src="https://fbcdahab.com"></iframe>
+        </div>
+        <div id="dahabsurfshop" class="tab-content">
+            <h2>Dahab Surf Shop - A surf shop for equipment and accessories (Note: I currently maintain and update this website but did not create it)</h2>
+            <iframe src="https://dahabsurfshop.com"></iframe>
+        </div>
+
+        <!-- Hotels & Hospitality -->
+        <div id="retacdahab" class="tab-content">
+            <h2>Retac Dahab - A 5-star resort with over 180 rooms, ex Le Méridien Dahab</h2>
+            <iframe src="https://retacdahab.com"></iframe>
+        </div>
+
+        <!-- Businesses & Agencies -->
+        <div id="invollect" class="tab-content">
+            <h2>Invollect - Debt collector</h2>
+            <iframe src="https://invollect.net"></iframe>
+        </div>
+        <div id="needanurse" class="tab-content">
+            <h2>Need a Nurse - Dental recruitment agency in the UK</h2>
+            <iframe src="https://needanurse.uk"></iframe>
+        </div>
+
+        <!-- Travel Agency -->
+        <div id="a5ena" class="tab-content">
+            <h2>A5ena - Travel agency</h2>
+            <iframe src="https://a5ena.com"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Typing effect
+        let i = 0;
+        let j = 0;
+        const txt1 = "Ali Khattab"; // First line
+        const txt2 = "Web Developer currently living in Dahab"; // Second line
+        const speed = 100;
+
+        function typeWriter() {
+            if (i < txt1.length) {
+                document.getElementById("typing").innerHTML += txt1.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else if (j < txt2.length) {
+                document.getElementById("typing2").innerHTML += txt2.charAt(j);
+                j++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+        typeWriter();
+
+        // Tabs functionality with toggle effect
+        let activeTab = null;
+
+        function toggleTab(tabName) {
+            const selectedTab = document.getElementById(tabName);
+            const allTabs = document.querySelectorAll(".tab-content");
+            const allTabButtons = document.querySelectorAll(".tab");
+
+            // If the same tab is clicked again, close it
+            if (activeTab === selectedTab) {
+                selectedTab.classList.remove("show");
+                allTabButtons.forEach(tab => tab.classList.remove("active"));
+                activeTab = null;
+                return;
+            }
+
+            // Hide all tabs and remove active class from all buttons
+            allTabs.forEach(tab => tab.classList.remove("show"));
+            allTabButtons.forEach(tab => tab.classList.remove("active"));
+
+            // Show selected tab and add active class to clicked button
+            selectedTab.classList.add("show");
+            event.target.classList.add("active");
+
+            // Set activeTab to the current tab
+            activeTab = selectedTab;
+        }
+
+        // Show tabs based on category
+        function showTabs(categoryId) {
+            const allCategories = document.querySelectorAll(".tabs");
+            allCategories.forEach(category => category.style.display = "none");
+
+            document.getElementById(categoryId).style.display = "flex";
+        }
+    </script>
+
+</body>
+</html>
